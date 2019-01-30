@@ -10,9 +10,9 @@ import Data.Maybe (Maybe(..))
 import Data.Proportion.Internal (Proportion(..))
 import Data.Proportion.Internal (Proportion) as ForReExport
 
-mk :: Number -> Maybe Proportion
-mk n | 0.0 <= n && n <= 1.0 = Just $ MkProportion n
+mk :: forall n. Ord n => Semiring n => n -> Maybe (Proportion n)
+mk n | zero <= n && n <= one = Just $ MkProportion n
      | otherwise = Nothing
 
-unMk :: Proportion -> Number
+unMk :: forall n. Proportion n -> n
 unMk (MkProportion n) = n
